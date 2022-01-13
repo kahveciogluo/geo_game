@@ -8,36 +8,47 @@ class OnboardPage extends StatefulWidget {
 }
 
 class _OnboardPageState extends State<OnboardPage> {
+  bool selected = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.redAccent, Colors.orangeAccent, Colors.teal],
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                  )
-              )
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: ExactAssetImage('assets/images/planet.jpeg'),
+            fit: BoxFit.fitHeight,
           ),
-          Center(child: Text('GeoGame', style: TextStyle(fontFamily: 'Mukta'),)),
-          Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.0),
-              child: ElevatedButton(
-                onPressed: () {},
+        ),
+        child: Container(
+          padding: EdgeInsets.only(top: 150, bottom:100, left: 20, right: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('GeoGame', style: TextStyle(fontFamily: 'Mukta', color: Colors.white, fontSize: 24),),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    selected = !selected;
+                  });
+                  print(selected.toString());
+                },
                 child: const Text('Get Started'),
                 style: ElevatedButton.styleFrom(
                     fixedSize: Size(MediaQuery.of(context).size.width, 40),
-                    primary: Colors.deepOrange
+                    primary: Colors.blueAccent
                 ),
               ),
-            ),
+              AnimatedContainer(
+                duration: Duration(microseconds: 10),
+                alignment: Alignment.bottomCenter,
+                color: Colors.white,
+                width: 100,
+                height: 200,
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
