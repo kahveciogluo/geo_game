@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geo_game/onboard.dart';
+import 'package:geo_game/ui/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Mukta',
       ),
-      home: const OnboardPage(),
+      home: const HomePage(),
     );
   }
 }
