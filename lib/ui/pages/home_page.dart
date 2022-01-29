@@ -36,8 +36,12 @@ class _HomePage extends State<HomePage> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                  fixedSize: Size(MediaQuery.of(context).size.width, 40),
+                  fixedSize: Size(MediaQuery.of(context).size.width, 50),
                   primary: Colors.transparent,
+                  side: BorderSide(color: Colors.white, width: 2),
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+            ),
 
               ),
               child: const Text('Get Started'),
