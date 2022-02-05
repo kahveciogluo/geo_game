@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:geo_game/theme/button_styles.dart';
 import 'package:geo_game/ui/bottom_sheets/signup_bottom_sheet.dart';
+import 'package:geo_game/ui/widgets/button.dart';
 
 class LoginBottomSheet extends StatefulWidget {
   const LoginBottomSheet({Key? key}) : super(key: key);
@@ -10,6 +12,9 @@ class LoginBottomSheet extends StatefulWidget {
 }
 
 class _LoginBottomSheetState extends State<LoginBottomSheet> {
+  GlobalKey<FormState> _formState = GlobalKey();
+  bool isAutoValidate = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,9 +32,10 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
             Text('Welcome', style: TextStyle(color: Colors.black87, fontSize: 18)),
             Text('Sign into continue', style: TextStyle(color: Colors.black54),),
             buildFormView(),
+            SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: buildLoginButton(context),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: GeoGameButton(buttonText: 'LOGIN', onPressed: (){},buttonStyle: MyButtonStyles.primary,),
             ),
             Center(child: Text('or', style: TextStyle(color: Colors.black54, fontSize: 12))),
             SizedBox(height: 10),
@@ -54,7 +60,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
           ),
           TextSpan(
             text: 'Sign up',
-            style: TextStyle(color: Color(0x96A078FF), fontSize: 12),
+            style: TextStyle(color: Color(0x966D40D4), fontSize: 12),
             recognizer: TapGestureRecognizer()..onTap = (){
               showModalBottomSheet(
                   isScrollControlled: true,
@@ -77,7 +83,6 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                 style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
                     padding: EdgeInsets.all(10),
-                    primary: Color(0x96A078FF)
                 ),
                 child: Icon( Icons.add, size: 30),
                 onPressed: () {},
@@ -86,7 +91,6 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                 style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
                     padding: EdgeInsets.all(10),
-                    primary: Color(0x96A078FF)
                 ),
                 child: Icon( Icons.add, size: 30),
                 onPressed: () {},
@@ -95,7 +99,6 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                 style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
                     padding: EdgeInsets.all(10),
-                    primary: Color(0x96A078FF)
                 ),
                 child: Icon( Icons.add, size: 30),
                 onPressed: () {},
@@ -103,23 +106,9 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
           ],);
   }
 
-  ElevatedButton buildLoginButton(BuildContext context) {
-    return ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              fixedSize: Size(MediaQuery.of(context).size.width, 50),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              primary: Color(0x96A078FF),
-
-            ),
-            child: const Text('LOGIN'),
-          );
-  }
-
   Form buildFormView() {
     return Form(
+      key: _formState,
       autovalidate: true,
             child: Column(
               children: [
@@ -127,17 +116,29 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                   validator: (value) {
                     return value!.isEmpty ? 'This area is not empty' : null ;
                   },
+                  keyboardType: TextInputType.emailAddress,
+                  style: TextStyle(color: Colors.black87, fontSize: 14),
                   decoration: InputDecoration(
                     labelText: 'EMAIL',
+                    labelStyle: TextStyle(color: Colors.black87, fontSize: 14, fontWeight: FontWeight.bold),
+                    hintText: 'example@gmail.com',
+                    hintStyle: TextStyle(fontSize: 12),
+                    prefixIcon: Icon(Icons.mail),
+
                   ),
                 ),
                 TextFormField(
                   validator: (value) {
-                    return value!.length > 5 ? null : 'Error' ;
+                    return value!.length >= 6 ? null : 'Error' ;
                   },
+                  keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                     labelText: 'PASSWORD',
-                    counterText: 'Forget Password?'
+                    labelStyle: TextStyle(color: Colors.black87, fontSize: 14, fontWeight: FontWeight.bold),
+                    hintText: 'Your password must be at least 6 characters',
+                    hintStyle: TextStyle(fontSize: 12),
+                    prefixIcon: Icon(Icons.mail),
+
                   ),
                 ),
               ],

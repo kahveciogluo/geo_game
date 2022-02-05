@@ -1,5 +1,6 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:geo_game/theme/button_styles.dart';
+import 'package:geo_game/ui/widgets/button.dart';
 
 class SignUpBottomSheet extends StatefulWidget {
   const SignUpBottomSheet({Key? key}) : super(key: key);
@@ -28,8 +29,8 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
             buildFormView(),
             SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: buildSignUpButton(context),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: GeoGameButton(buttonText: 'SIGN UP', onPressed: (){}, buttonStyle: MyButtonStyles.primary,),
             ),
             Center(
               child: Padding(
@@ -64,34 +65,19 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
                      primary: Colors.transparent,
                       onPrimary: Colors.transparent,
                       shadowColor: Colors.transparent,
-                      side: BorderSide(color: Color(0x96A078FF), width: 2),
+                      side: BorderSide(color: Color(0x966D40D4), width: 2),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
 
                     ),
-                    child: const Text('Login', style: TextStyle(color: Color(0x96A078FF) )),
+                    child: const Text('Login', style: TextStyle(color: Color(0x966D40D4) )),
                   );
-  }
-
-  ElevatedButton buildSignUpButton(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        fixedSize: Size(MediaQuery.of(context).size.width, 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        primary: Color(0x96A078FF),
-
-      ),
-      child: const Text('SIGN UP'),
-    );
   }
 
   Form buildFormView() {
     return Form(
-      autovalidate: true,
+      autovalidate: false,
       child: Column(
         children: [
           TextFormField(

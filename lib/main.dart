@@ -10,10 +10,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color myPrimaryColor = Color(0x966D40D4);
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'Mukta',
+        colorScheme: ThemeData().colorScheme.copyWith(
+          primary: myPrimaryColor,
+        ),
       ),
       home: const HomePage(),
     );
