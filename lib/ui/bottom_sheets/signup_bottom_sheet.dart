@@ -34,7 +34,18 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
             Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical:20),
-                child: buildAlreadyHaveAnAccountText(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right:5),
+                      child: Text(
+                  'Already have an account? ',
+                  style: TextStyle(color: Colors.black87, fontSize: 12)),
+                    ),
+                    buildLoginButton(context),
+                  ],
+                ),
               ),
             )
           ],
@@ -43,21 +54,24 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
     );
   }
 
-  RichText buildAlreadyHaveAnAccountText() {
-    return RichText(
-      text: TextSpan(children: [
-        TextSpan(text: 'Already have an account? ',
-          style: TextStyle(color: Colors.black87, fontSize: 12),
-        ),
-        TextSpan(
-          text: 'Login',
-          style: TextStyle(color: Color(0x96A078FF), fontSize: 12),
-          recognizer: TapGestureRecognizer()..onTap = (){
-            print('deneme');
-          } ,
-        ),
-      ]),
-    );
+  ElevatedButton buildLoginButton(BuildContext context) {
+    return ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+
+                    },
+                    style: ElevatedButton.styleFrom(
+                     primary: Colors.transparent,
+                      onPrimary: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      side: BorderSide(color: Color(0x96A078FF), width: 2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+
+                    ),
+                    child: const Text('Login', style: TextStyle(color: Color(0x96A078FF) )),
+                  );
   }
 
   ElevatedButton buildSignUpButton(BuildContext context) {
