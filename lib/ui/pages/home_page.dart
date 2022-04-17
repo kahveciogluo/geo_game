@@ -20,23 +20,25 @@ class _HomePage extends State<HomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
+          SizedBox(
             width: double.infinity,
             height: MediaQuery.of(context).size.height*0.5,
-            child: RiveAnimation.asset('assets/3d_raster_test.riv',),
+            child: const RiveAnimation.asset('assets/3d_raster_test.riv',),
           ),
-          Text('GeoGame', style: TextStyle(fontFamily: 'Mukta', color: Colors.white, fontSize: 24),),
+          const Text('GeoGame', style: TextStyle(fontFamily: 'Mukta', color: Colors.white, fontSize: 24),),
           Padding(
             padding: const EdgeInsets.only(left: 50, right: 50, bottom: 50),
             child: GeoGameButton(
                 buttonStyle: MyButtonStyles.roundedButton,
                 buttonText: 'Get Started',
                 onPressed: (){
-                  showModalBottomSheet(
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      context: context,
-                      builder: (context) => LoginBottomSheet()
+                  showModalBottomSheet<void>(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const LoginBottomSheet();
+                    },
                   );
                 }),
           ),

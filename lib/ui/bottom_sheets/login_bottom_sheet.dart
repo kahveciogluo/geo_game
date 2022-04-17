@@ -12,13 +12,12 @@ class LoginBottomSheet extends StatefulWidget {
 }
 
 class _LoginBottomSheetState extends State<LoginBottomSheet> {
-  GlobalKey<FormState> _formState = GlobalKey();
-  bool isAutoValidate = false;
+  final GlobalKey<FormState> _formState = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20), topRight: Radius.circular(20)),
@@ -29,21 +28,21 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Welcome', style: TextStyle(color: Colors.black87, fontSize: 18)),
-            Text('Sign into continue', style: TextStyle(color: Colors.black54),),
+            const Text('Welcome', style: TextStyle(color: Colors.black87, fontSize: 18)),
+            const Text('Sign into continue', style: TextStyle(color: Colors.black54),),
             buildFormView(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: GeoGameButton(buttonText: 'LOGIN', onPressed: (){},buttonStyle: MyButtonStyles.primary,),
             ),
-            Center(child: Text('or', style: TextStyle(color: Colors.black54, fontSize: 12))),
-            SizedBox(height: 10),
+            const Center(child: Text('or', style: TextStyle(color: Colors.black54, fontSize: 12))),
+            const SizedBox(height: 10),
             buildLoginIconButtons(),
             Center(
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical:20),
-                child: buildDontHaveAnAccountText(),
+                padding: const EdgeInsets.symmetric(vertical:20),
+                child: buildDoNotHaveAnAccountText(),
               ),
             )
           ],
@@ -52,21 +51,22 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
     );
   }
 
-  RichText buildDontHaveAnAccountText() {
+  RichText buildDoNotHaveAnAccountText() {
     return RichText(
           text: TextSpan(children: [
-          TextSpan(text: 'Dont have an account? ',
+          const TextSpan(text: 'Dont have an account? ',
             style: TextStyle(color: Colors.black87, fontSize: 12),
           ),
           TextSpan(
             text: 'Sign up',
-            style: TextStyle(color: Color(0x966D40D4), fontSize: 12),
+            style: const TextStyle(color: Color(0x966D40D4), fontSize: 12),
             recognizer: TapGestureRecognizer()..onTap = (){
+              Navigator.pop(context);
               showModalBottomSheet(
                   isScrollControlled: true,
                   backgroundColor: Colors.transparent,
                   context: context,
-                  builder: (context) => SignUpBottomSheet()
+                  builder: (context) => const SignUpBottomSheet()
               );
             },
           ),
@@ -81,26 +81,26 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
             children: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    shape: CircleBorder(),
-                    padding: EdgeInsets.all(10),
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(10),
                 ),
-                child: Icon( Icons.add, size: 30),
+                child: const Icon( Icons.add, size: 30),
                 onPressed: () {},
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    shape: CircleBorder(),
-                    padding: EdgeInsets.all(10),
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(10),
                 ),
-                child: Icon( Icons.add, size: 30),
+                child: const Icon( Icons.add, size: 30),
                 onPressed: () {},
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    shape: CircleBorder(),
-                    padding: EdgeInsets.all(10),
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(10),
                 ),
-                child: Icon( Icons.add, size: 30),
+                child: const Icon( Icons.add, size: 30),
                 onPressed: () {},
               ),
           ],);
@@ -109,7 +109,6 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
   Form buildFormView() {
     return Form(
       key: _formState,
-      autovalidate: true,
             child: Column(
               children: [
                 TextFormField(
@@ -117,8 +116,8 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                     return value!.isEmpty ? 'This area is not empty' : null ;
                   },
                   keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(color: Colors.black87, fontSize: 14),
-                  decoration: InputDecoration(
+                  style: const TextStyle(color: Colors.black87, fontSize: 14),
+                  decoration: const InputDecoration(
                     labelText: 'EMAIL',
                     labelStyle: TextStyle(color: Colors.black87, fontSize: 14, fontWeight: FontWeight.bold),
                     hintText: 'example@gmail.com',
@@ -132,7 +131,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                     return value!.length >= 6 ? null : 'Error' ;
                   },
                   keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'PASSWORD',
                     labelStyle: TextStyle(color: Colors.black87, fontSize: 14, fontWeight: FontWeight.bold),
                     hintText: 'Your password must be at least 6 characters',
