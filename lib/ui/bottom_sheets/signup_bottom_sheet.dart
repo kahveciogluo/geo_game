@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geo_game/firebase_services/auth.dart';
 import 'package:geo_game/theme/button_styles.dart';
 import 'package:geo_game/ui/bottom_sheets/login_bottom_sheet.dart';
 import 'package:geo_game/ui/widgets/button.dart';
@@ -11,6 +12,12 @@ class SignUpBottomSheet extends StatefulWidget {
 }
 
 class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
+  final TextEditingController _userName = TextEditingController();
+  final TextEditingController _userEmail = TextEditingController();
+  final TextEditingController  _userPassword = TextEditingController();
+  final AuthService _authService = AuthService();
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +39,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: GeoGameButton(buttonText: 'SIGN UP', onPressed: (){}, buttonStyle: MyButtonStyles.primary,),
+              child: GeoGameButton(buttonText: 'SIGN UP', onPressed: _signUp, buttonStyle: MyButtonStyles.primary,),
             ),
             Center(
               child: Padding(
@@ -90,6 +97,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
       child: Column(
         children: [
           TextFormField(
+            controller: _userName,
             validator: (value) {
               return value!.isEmpty ? 'This area is not empty' : null ;
             },
@@ -98,6 +106,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
             ),
           ),
           TextFormField(
+            controller: _userEmail,
             validator: (value) {
               return value!.isEmpty ? 'This area is not empty' : null ;
             },
@@ -106,6 +115,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
             ),
           ),
           TextFormField(
+            controller: _userPassword,
             validator: (value) {
               return value!.length > 5 ? null : 'Error' ;
             },
@@ -116,5 +126,13 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
         ],
       ),
     );
+  }
+
+  void _signUp(){
+    if(_userName.text.isNotEmpty && _userEmail.text.isNotEmpty && _userPassword.text.isNotEmpty){
+      _authService.createUser(_userName.text, _userEmail.text, _userPassword.text).then((value){
+        Navigator.pop(context);}
+      ).catchError((){}).whenComplete(() => null);
+    } else {print('HATA');}
   }
 }
