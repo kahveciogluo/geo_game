@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:geo_game/firebase_services/auth.dart';
 import 'package:geo_game/theme/button_styles.dart';
 import 'package:geo_game/ui/bottom_sheets/signup_bottom_sheet.dart';
 import 'package:geo_game/ui/widgets/button.dart';
@@ -12,7 +13,11 @@ class LoginBottomSheet extends StatefulWidget {
 }
 
 class _LoginBottomSheetState extends State<LoginBottomSheet> {
+  final AuthService _authService = AuthService();
   final GlobalKey<FormState> _formState = GlobalKey();
+  final TextEditingController _userEmail = TextEditingController();
+  final TextEditingController _userPassword = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +40,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: GeoGameButton(buttonText: 'LOGIN', onPressed: (){},buttonStyle: MyButtonStyles.primary,),
+              child: GeoGameButton(buttonText: 'LOGIN', onPressed: _login, buttonStyle: MyButtonStyles.primary,),
             ),
             const Center(child: Text('or', style: TextStyle(color: Colors.black54, fontSize: 12))),
             const SizedBox(height: 10),
@@ -113,6 +118,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
             child: Column(
               children: [
                 TextFormField(
+                  controller: _userEmail,
                   validator: (value) {
                     return value!.isEmpty ? 'This area is not empty' : null ;
                   },
@@ -128,6 +134,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                   ),
                 ),
                 TextFormField(
+                  controller: _userPassword,
                   validator: (value) {
                     return value!.length >= 6 ? null : 'Error' ;
                   },
@@ -144,5 +151,12 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
               ],
             ),
           );
+  }
+
+  void _login(){
+    if( _userEmail.text.isNotEmpty && _userPassword.text.isNotEmpty){
+     _authService.signInWithEmail(_userEmail.text, _userPassword.text).then((value){
+       Navigator.pop(context);}).catchError((){}).whenComplete(() => null);
+    } else {print('HATA');}
   }
 }
