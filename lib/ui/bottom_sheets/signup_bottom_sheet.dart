@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geo_game/theme/button_styles.dart';
+import 'package:geo_game/ui/bottom_sheets/login_bottom_sheet.dart';
 import 'package:geo_game/ui/widgets/button.dart';
 
 class SignUpBottomSheet extends StatefulWidget {
@@ -13,6 +14,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: MediaQuery.of(context).viewInsets,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -59,6 +61,14 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
     return ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      showModalBottomSheet<void>(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const LoginBottomSheet();
+                        },
+                      );
 
                     },
                     style: ElevatedButton.styleFrom(

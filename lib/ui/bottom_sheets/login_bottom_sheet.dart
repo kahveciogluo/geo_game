@@ -17,6 +17,7 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: MediaQuery.of(context).viewInsets,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
